@@ -5,19 +5,16 @@
   import data from "$lib/map_config.json";
   import Plane from "./Plane.svelte";
   import Building from "./Building.svelte";
-  import Street from "./Street.svelte";
-  import Water from "./Water.svelte";
-  import Park from "./Park.svelte";
+  import TwoDimensionalObject from "./TwoDimensionalObject.svelte";
 
   const config: Config = data;
-  console.log(config);
 </script>
 
 <T.PerspectiveCamera makeDefault position={[-10, -10, 10]} up={[0, 0, 1]}>
   <OrbitControls enableDamping />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position={[3, -10, 7]} />
+<T.DirectionalLight position={[3, -20, 10]} castShadow />
 <T.AmbientLight intensity={0.2} />
 
 <Plane widthX={config.planeSize.x} widthY={config.planeSize.y} />
@@ -26,16 +23,16 @@
   <Building {building} />
 {/each}
 
-{#each config.street as street}
-  <Street {street} />
+{#each config.street as object}
+  <TwoDimensionalObject {object} texturePath={"/textures/street.jpg"} />
 {/each}
 
-{#each config.water as water}
-  <Water {water} />
+{#each config.water as object}
+  <TwoDimensionalObject {object} texturePath={"/textures/water.png"} />
 {/each}
 
-{#each config.park as park}
-  <Park {park} />
+{#each config.park as object}
+  <TwoDimensionalObject {object} texturePath={"/textures/park.jpg"} />
 {/each}
 
 <T.AxesHelper />
