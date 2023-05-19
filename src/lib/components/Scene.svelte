@@ -8,19 +8,25 @@
   import TwoDimensionalObject from "./TwoDimensionalObject.svelte";
 
   const config: Config = data;
+
+  function randomIntsFromInterval(min: number, max: number, length: number) {
+    return Array.from({ length: length }, () => Math.floor(Math.random() * (max - min + 1) + min));
+  }
+
+  const buildingTextures = randomIntsFromInterval(1, 5, config.buildings.length);
 </script>
 
 <T.PerspectiveCamera makeDefault position={[-10, -10, 10]} up={[0, 0, 1]}>
   <OrbitControls enableDamping />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position={[3, -20, 10]} castShadow />
+<T.DirectionalLight position={[3, -20, 10]} castShadow intensity={0.5} />
 <T.AmbientLight intensity={0.2} />
 
 <Plane widthX={config.planeSize.x} widthY={config.planeSize.y} />
 
-{#each config.buildings as building}
-  <Building {building} />
+{#each config.buildings as building, i}
+  <Building {building} texturePath={"/textures/buildings/" + buildingTextures[i] + ".jpg"} />
 {/each}
 
 {#each config.street as object}

@@ -1,10 +1,12 @@
 <script lang="ts">
   import { T } from "@threlte/core";
-  import { Shape, ExtrudeGeometry } from "three";
+  import { useTexture } from "@threlte/extras";
+  import { Shape, ExtrudeGeometry, RepeatWrapping } from "three";
   import type { ObjectThreeDimensions } from "$lib/types";
   import Page from "../../routes/+page.svelte";
 
   export let building: ObjectThreeDimensions;
+  export let texturePath: string;
 
   const shape = new Shape();
   const extrudeSettings = {
@@ -12,6 +14,15 @@
     depth: building.height,
     bevelEnabled: false,
   };
+
+  const map = useTexture(texturePath);
+
+  $: {
+    if ($map) {
+      $map.wrapS = RepeatWrapping;
+      $map.wrapT = RepeatWrapping;
+    }
+  }
 
   // Move shape to first vertex
   shape.moveTo(building.vertices[0].x, building.vertices[0].y);
@@ -27,6 +38,8 @@
   const geometry = new ExtrudeGeometry(shape, extrudeSettings);
 </script>
 
-<T.Mesh {geometry} castShadow receiveShadow>
-  <T.MeshStandardMaterial color="gray" />
-</T.Mesh>
+{#await map then value}
+  <T.Mesh {geometry} castShadow receiveShadow>
+    <T.MeshStandardMaterial map={value} />
+  </T.Mesh>
+{/await}
