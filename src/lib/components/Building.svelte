@@ -1,7 +1,7 @@
 <script lang="ts">
   import { T } from "@threlte/core";
   import { useTexture } from "@threlte/extras";
-  import { Shape, ExtrudeGeometry, RepeatWrapping } from "three";
+  import { Shape, ExtrudeGeometry, ShapeGeometry, RepeatWrapping } from "three";
   import type { ObjectThreeDimensions } from "$lib/types";
   import Page from "../../routes/+page.svelte";
 
@@ -36,9 +36,13 @@
   shape.lineTo(building.vertices[0].x, building.vertices[0].y);
 
   const geometry = new ExtrudeGeometry(shape, extrudeSettings);
+  const roofGeometry = new ShapeGeometry(shape);
 </script>
 
 {#await map then value}
+  <T.Mesh geometry={roofGeometry} position.z={building.height + 0.01}>
+    <T.MeshStandardMaterial color="gray" />
+  </T.Mesh>
   <T.Mesh {geometry} castShadow receiveShadow>
     <T.MeshStandardMaterial map={value} />
   </T.Mesh>

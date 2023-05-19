@@ -34,7 +34,7 @@
 </script>
 
 {#await map then value}
-  <T.Mesh {geometry}>
+  <T.Mesh {geometry} receiveShadow>
     <T.MeshStandardMaterial map={value} />
   </T.Mesh>
 {/await}

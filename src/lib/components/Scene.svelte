@@ -2,7 +2,7 @@
   import { T } from "@threlte/core";
   import { OrbitControls } from "@threlte/extras";
   import type { Config } from "$lib/types";
-  import data from "$lib/map_config.json";
+  import data from "$lib/city.json";
   import Plane from "./Plane.svelte";
   import Building from "./Building.svelte";
   import TwoDimensionalObject from "./TwoDimensionalObject.svelte";
@@ -20,7 +20,7 @@
   <OrbitControls enableDamping />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position={[3, -20, 10]} castShadow intensity={0.5} />
+<T.DirectionalLight position={[3, -20, 20]} castShadow intensity={0.5} />
 <T.AmbientLight intensity={0.2} />
 
 <Plane widthX={config.planeSize.x} widthY={config.planeSize.y} />
