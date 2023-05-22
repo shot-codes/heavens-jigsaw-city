@@ -1,11 +1,12 @@
 <script lang="ts">
   import { Canvas } from "@threlte/core";
   import Scene from "$lib/components/Scene.svelte";
+  import Vanilla from "$lib/components/Vanilla.svelte";
 </script>
 
 <div>
   <Canvas>
-    <Scene />
+    <Vanilla />
   </Canvas>
 </div>
 
