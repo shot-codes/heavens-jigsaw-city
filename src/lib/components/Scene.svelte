@@ -20,7 +20,7 @@
   <OrbitControls enableDamping />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position={[3, -20, 20]} castShadow intensity={0.5} />
+<T.DirectionalLight position={[20, 20, 30]} castShadow intensity={0.5} up={[0, 0, 1]} />
 <T.AmbientLight intensity={0.2} />
 
 <Plane widthX={config.planeSize.x} widthY={config.planeSize.y} />
